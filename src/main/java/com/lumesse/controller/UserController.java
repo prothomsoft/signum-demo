@@ -1,5 +1,7 @@
 package com.lumesse.controller;
 
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,12 +29,18 @@ public class UserController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(@RequestParam(value = "error", required = false) String error,
-						@RequestParam(value = "logout", required = false) String logout, Model model) {
+						@RequestParam(value = "logout", required = false) String logout, Model model, Locale locale) {
 		if (error != null) {
-			model.addAttribute("error", "Invalid username and password!");
+			model.addAttribute("error", "Invalid username or password!");
+			if(locale.getLanguage().equals("pl")) {
+				model.addAttribute("error", "Niewlasciwa nazwa uzytkownika lub haslo!");
+			}
 		}
 		if (logout != null) {
 			model.addAttribute("msg", "You've been logged out successfully.");
+			if(locale.getLanguage().equals("pl")) {
+				model.addAttribute("msg", "Udane wylogowanie z systemu.");
+			}
 		}
 		return "login";
 	}

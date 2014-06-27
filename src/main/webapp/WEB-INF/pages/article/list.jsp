@@ -1,4 +1,5 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +7,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Demo</title>
+	<title>Signum Demo</title>
 	<!-- Bootstrap -->
 	<link href="/signum-demo/resources/css/main.min.css"
 		rel="stylesheet" type="text/css" />
@@ -28,20 +29,28 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="/signum-demo">Signum DEMO</a>
+					<a class="navbar-brand" href="/signum-demo">Signum Demo</a>
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="/signum-demo/article/list">Articles</a></li>
+						<li class="active"><a href="/signum-demo/article/list"><spring:message code="menu.articles" text="Articles" /></a></li>
 						<sec:authorize var="loggedIn" access="isAuthenticated()" />
                         <c:choose>
                             <c:when test="${loggedIn}">
-                                <li><a href="#">${pageContext['request'].userPrincipal.name} | Logout</a></li>
+                                <li><a href="#" id="logout">${pageContext['request'].userPrincipal.name} | <spring:message code="menu.logout" text="Logout" /></a></li>
                             </c:when>
                             <c:otherwise>
-                                <li><a href="/signum-demo/login">Login</a></li>
+                                <li><a href="/signum-demo/login"><spring:message code="menu.login" text="Login" /></a></li>
                             </c:otherwise>
                         </c:choose>
+                        <c:choose>
+                            <c:when test="${pageContext['response'].locale eq 'pl'}">
+                                <li><a href="?lang=en"><spring:message code="menu.english" text="English" /></a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a href="?lang=pl"><spring:message code="menu.polish" text="Polish" /></a></li>
+                            </c:otherwise>
+                        </c:choose>     
 					</ul>
 				</div>
 			</div>			
@@ -51,7 +60,7 @@
 	<div class="container">
 		<div class="starter-template">
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<a class="btn btn-primary" data-toggle="modal" href="/signum-demo/article/add" data-target="#myModal">Add new entry</a><br /><br />
+				<a class="btn btn-primary" data-toggle="modal" href="/signum-demo/article/add" data-target="#myModal"><spring:message code="article.addnewentry" text="Add new entry" /></a><br /><br />
 			</sec:authorize>
 			
 			<c:choose>
@@ -69,9 +78,9 @@
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th><a href="${sortUrlArticleId}">Article Id</a></th>
-						<th><a href="${sortUrlArticleTitle}">Article Title</a></th>
-						<th><a href="${sortUrlArticleContent}">Article Content</a></th>
+						<th><a href="${sortUrlArticleId}"><spring:message code="article.id" text="Id" /></a></th>
+						<th><a href="${sortUrlArticleTitle}"><spring:message code="article.title" text="Title" /></a></th>
+						<th><a href="${sortUrlArticleContent}"><spring:message code="article.content" text="Content" /></a></th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -85,8 +94,8 @@
 								<sec:authorize var="isAdmin" access="hasRole('ROLE_ADMIN')" />
 					            <c:choose>
 					                <c:when test="${isAdmin}">
-					                   <a data-toggle="modal" href="/signum-demo/article/edit/${article.articleId}" data-target="#myModal">Edit</a> | 
-                                       <a href="/signum-demo/article/delete/${article.articleId}">Delete</a>
+					                   <a data-toggle="modal" href="/signum-demo/article/edit/${article.articleId}" data-target="#myModal"><spring:message code="article.edit" text="Edit" /></a> | 
+                                       <a href="/signum-demo/article/delete/${article.articleId}" id="delete"><spring:message code="article.delete" text="Delete" /></a>
 					                </c:when>
 					                <c:otherwise>
 					                    -
@@ -158,8 +167,9 @@
         $(document).ready(function() {
         	$('#myModal').on('hide.bs.modal', function () {
        		   $('#myModal').removeData();
-       		});        	
-        	$("a:contains('Delete')").click(function(event) {
+       		});   
+        	
+        	$("#delete").click(function(event) {
         		$.ajax({
                     type : "GET",
                     url : $(event.target).attr("href"),
@@ -173,7 +183,7 @@
         		event.preventDefault();
         	});
         	
-        	$("a:contains('Logout')").click(function() {
+        	$("#logout").click(function() {
                 $("#logoutForm").submit();
             });
 		});
