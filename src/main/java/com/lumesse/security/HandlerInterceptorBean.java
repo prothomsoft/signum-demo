@@ -28,6 +28,7 @@ public class HandlerInterceptorBean implements HandlerInterceptor {
 	public void postHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
+		modelAndView.addObject("articleTotal", "20");
 		logger.info("postHandle");
 	}
 
