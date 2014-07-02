@@ -55,9 +55,9 @@ public class ArticleController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/delete/{articleId}", method=RequestMethod.GET)
-	public @ResponseBody RestResponseDTO deleteArticleAction(@PathVariable Long articleId, Model model) {
+	public String deleteArticleAction(@PathVariable Long articleId, Model model) {
 		articleService.delete(articleId);
-		return new RestResponseDTO("Response");
+		return "redirect:/article/list";
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")

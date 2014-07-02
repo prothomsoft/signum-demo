@@ -171,20 +171,6 @@
        		   $('#myModal').removeData();
        		});   
         	
-        	$("#delete").click(function(event) {
-        		$.ajax({
-                    type : "GET",
-                    url : $(event.target).attr("href"),
-                    async : false,
-                    dataType : "json",
-                    success : function(data) {
-                    	window.location.reload();
-                    },
-                    cache : false
-                });
-        		event.preventDefault();
-        	});
-        	
         	$("#logout").click(function() {
                 $("#logoutForm").submit();
             });
