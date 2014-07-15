@@ -52,7 +52,8 @@
                             <c:otherwise>
                                 <li><a href="?lang=pl"><spring:message code="menu.polish" text="Polish" /></a></li>
                             </c:otherwise>
-                        </c:choose>     
+                        </c:choose>
+                        <li><a href="#"><spring:message code="menu.executeTime" text="Response time" />: ${executeTime} ms</a></li>
 					</ul>
 				</div>
 			</div>			

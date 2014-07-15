@@ -63,6 +63,13 @@
       
     <div class="container">
     
+    	<!-- 
+    	<div class="page-section">
+			<p>This text changes color based on media query</p>
+		</div>
+		 -->
+		
+    
 	    <div class="starter-template">
             <p><strong><u>Jak zbudować od podstaw responsywną, bezpieczną aplikacje webową działająca w chmurze.</u></strong></p>
 
