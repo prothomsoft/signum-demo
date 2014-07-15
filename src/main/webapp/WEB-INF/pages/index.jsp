@@ -146,6 +146,8 @@
 		<li>Bootstrap 3.0 grid explanation <a href="http://www.helloerik.com/" target="_blank">http://www.helloerik.com</a></li>
 		<li>Roots.io Modern WordPress Development <a href="http://http://roots.io" target="_blank">http://http://roots.io</a></li>
 		<li>Frameless grid <a href="http://framelessgrid.com/" target="_blank">http://framelessgrid.com/</a></li>
+		<li>Spring initialization <a href="http://www.kubrynski.com/2014/01/understanding-spring-web-initialization.html">http://www.kubrynski.com</a></li>
+		<li>Spring configuration <a href="http://www.kubrynski.com/2014/01/spring-java-config-101.html">http://www.kubrynski.com</a></li>
 		</ul>
      
 		</div><!-- /.starter-template -->
