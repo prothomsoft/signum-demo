@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 /**
- * Example of Interceptor registered in AppLocaleConfig
+ * Example of Interceptor registered in LocaleConfig
  *
  */
 public class HandlerInterceptorBean implements HandlerInterceptor {
@@ -20,6 +20,9 @@ public class HandlerInterceptorBean implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
+
+		long startTime = System.currentTimeMillis();
+		request.setAttribute("startTime", startTime);
 		logger.info("preHandle");
 		return true;
 	}
@@ -28,7 +31,11 @@ public class HandlerInterceptorBean implements HandlerInterceptor {
 	public void postHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		modelAndView.addObject("articleTotal", "20");
+
+		long startTime = (Long)request.getAttribute("startTime");
+		long endTime = System.currentTimeMillis();
+		long executeTime = endTime - startTime;
+		modelAndView.addObject("executeTime",executeTime);
 		logger.info("postHandle");
 	}
 
