@@ -8,14 +8,16 @@ import com.lumesse.domain.Article;
 public interface IArticleService {
 
 	/**
-	 *
+	 * getArticles
 	 * @param pageNumber
+	 * @param sortDirection
+	 * @param sortColumn
 	 * @return
 	 */
 	public Page<Article> getArticles(Integer pageNumber, Direction sortDirection, String sortColumn);
 
 	/**
-	 *
+	 * findByArticleTitle
 	 * @param articleTitle
 	 * @return
 	 */
